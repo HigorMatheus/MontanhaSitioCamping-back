@@ -1,12 +1,9 @@
-import { IUser } from '../model/user-model';
-
-interface ICredentials {
+export interface ICredentials {
   email: string;
   password: string;
 }
 
-interface IResponse {
-  user: IUser;
+export interface IResponse {
   token: string;
 }
 
