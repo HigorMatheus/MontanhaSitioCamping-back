@@ -1,10 +1,15 @@
-import { IUserModel } from '../model/user-model';
+import { UserModel } from '../model/user-model';
 
-export interface ICreateUserParams {
-  name: string;
-  email: string;
-  password: string;
-}
 export interface ICreateUser {
-  create: (params: ICreateUserParams) => Promise<IUserModel>;
+  create: (params: ICreateUser.Params) => Promise<UserModel>;
+}
+
+export namespace ICreateUser {
+  export type Params = {
+    name: string;
+    email: string;
+    password: string;
+  };
+
+  export type Model = UserModel;
 }

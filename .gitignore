@@ -3,6 +3,3 @@ package-lock.json
 yarn-error.log
 coverage
 .env
-
-*.db
-*.db-journal

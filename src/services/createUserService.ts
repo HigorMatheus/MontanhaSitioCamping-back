@@ -1,34 +1,37 @@
-import { IUserModel } from '@/domain/model/user-model';
-import { ICreateUser, ICreateUserParams } from '@/domain/useCase/createUser';
+import { inject, injectable } from 'tsyringe';
+
+import { IUserRepository } from '@/domain/repositories/userRepository';
+import { ICreateUser } from '@/domain/useCase/createUser';
 import { prismaClient } from '@/main/adaptes/prisma';
 import AppError from '@/main/error';
 
+@injectable()
 export class CreateUserService implements ICreateUser {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
   public async create({
     email,
     name,
     password,
-  }: ICreateUserParams): Promise<IUserModel> {
-    const user = await prismaClient.user.findFirst({
-      where: { email },
-    });
+  }: ICreateUser.Params): Promise<ICreateUser.Model> {
+    const user = await this.userRepository.findByEmail(email);
 
     if (user?.id) {
       throw new AppError('User already exists');
     }
 
-    const newUser = await prismaClient.user.create({
-      data: {
-        name,
-        email,
-        password,
-      },
+    const userCreated = await this.userRepository.create({
+      name,
+      email,
+      password,
     });
 
     return {
-      email: newUser.email,
-      id: newUser.id,
-      name: newUser.name,
+      email: userCreated.email,
+      name: userCreated.name,
+      id: userCreated.id,
     };
   }
 }
