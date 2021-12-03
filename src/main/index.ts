@@ -1,8 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import 'reflect-metadata';
+import 'dotenv/config';
+
 import express, { NextFunction, Request, Response } from 'express';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'express-async-errors';
-
+import './container';
 import AppError from './error';
 import { routes } from './routes';
 
@@ -17,6 +20,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
       message: err.message,
     });
   }
+
   return response.status(500).json({
     status: 'error',
     message: `Internal server error - ${err.message}`,

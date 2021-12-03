@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUserRepository } from '@/domain/repositories/userRepository';
-import { ICreateUser } from '@/domain/useCase/createUser';
-import { prismaClient } from '@/main/adaptes/prisma';
+import { IHashProvider } from '@/domain/providers';
+import { IUserRepository } from '@/domain/repositories';
+import { ICreateUser } from '@/domain/useCase';
 import AppError from '@/main/error';
 
 @injectable()
@@ -10,6 +10,8 @@ export class CreateUserService implements ICreateUser {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
   public async create({
     email,
@@ -21,17 +23,14 @@ export class CreateUserService implements ICreateUser {
     if (user?.id) {
       throw new AppError('User already exists');
     }
+    const passwordHash = await this.hashProvider.generateHash(password);
 
     const userCreated = await this.userRepository.create({
       name,
       email,
-      password,
+      password: passwordHash,
     });
 
-    return {
-      email: userCreated.email,
-      name: userCreated.name,
-      id: userCreated.id,
-    };
+    return userCreated;
   }
 }

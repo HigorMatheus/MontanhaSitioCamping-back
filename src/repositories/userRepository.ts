@@ -11,14 +11,20 @@ export class UserRepository implements IUserRepository {
     password,
   }: ICreateUser.Params): Promise<User> {
     const user = await prismaClient.user.create({
-      data: { name, email, password },
+      data: {
+        name,
+        email,
+        password,
+      },
     });
     return user;
   }
 
   public async findByEmail(email: string): Promise<User | null> {
     const user = await prismaClient.user.findFirst({
-      where: { email },
+      where: {
+        email,
+      },
     });
 
     return user;

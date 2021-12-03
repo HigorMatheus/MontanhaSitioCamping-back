@@ -1,7 +1,7 @@
-import { UserModel } from '../model/user-model';
+import { User } from '.prisma/client';
 
 export interface ICreateUser {
-  create: (params: ICreateUser.Params) => Promise<UserModel>;
+  create: (params: ICreateUser.Params) => Promise<User>;
 }
 
 export namespace ICreateUser {
@@ -11,5 +11,5 @@ export namespace ICreateUser {
     password: string;
   };
 
-  export type Model = UserModel;
+  export type Model = User;
 }

@@ -1,12 +1,14 @@
-export interface ICredentials {
-  email: string;
-  password: string;
-}
-
-export interface IResponse {
-  token: string;
-}
-
 export interface IAuthentication {
-  auth(params: ICredentials): Promise<IResponse>;
+  auth(params: IAuthentication.Params): Promise<IAuthentication.Model>;
+}
+
+export namespace IAuthentication {
+  export type Params = {
+    email: string;
+    password: string;
+  };
+
+  export type Model = {
+    token: string;
+  };
 }
