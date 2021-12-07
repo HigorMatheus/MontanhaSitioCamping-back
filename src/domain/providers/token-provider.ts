@@ -1,3 +1,3 @@
 export interface ITokenProvider {
-  generateToken(subject: string): string;
+  generateToken(subject: string): Promise<string>;
 }

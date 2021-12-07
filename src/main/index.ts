@@ -6,13 +6,14 @@ import express, { NextFunction, Request, Response } from 'express';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'express-async-errors';
 import './container';
-import AppError from './error';
-import { routes } from './routes';
+import { routes } from '@/presentation/routes';
+
+import { AppError, uploadConfig } from './config';
 
 const app = express();
 
 app.use(express.json());
-
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   if (err instanceof AppError) {

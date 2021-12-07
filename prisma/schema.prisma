@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -17,4 +17,22 @@ model User {
   email    String
 
   @@map("users")
+}
+
+model Highlight {
+  id               String             @id @default(uuid())
+  title            String
+  description      String
+  HighlightsPhotos HighlightsPhotos[]
+
+  @@map("highlights")
+}
+
+model HighlightsPhotos {
+  id          String    @id @default(uuid())
+  fileName    String
+  Highlight   Highlight @relation(fields: [highlightId], references: [id])
+  highlightId String
+
+  @@map("highlightsPhotos")
 }
