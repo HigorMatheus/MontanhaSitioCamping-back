@@ -22,7 +22,7 @@ export class AuthenticationService implements IAuthentication {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('invalid credentials');
+      throw new AppError(' invalid credentials');
     }
 
     const auth = await this.hashProvider.compareHash(password, user.password);
