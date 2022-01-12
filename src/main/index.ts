@@ -32,6 +32,6 @@ process.on('SIGTERM', () => {
   process.exit();
 });
 
-app.listen(process.env.PORT || 3333, () => {
+app.listen(process.env.PORT, () => {
   console.log('server started');
 });
