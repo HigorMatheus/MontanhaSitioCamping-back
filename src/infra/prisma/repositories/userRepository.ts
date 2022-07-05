@@ -9,12 +9,18 @@ export class UserRepository implements IUserRepository {
     name,
     email,
     password,
-  }: ICreateUser.Params): Promise<User> {
+  }: ICreateUser.Params): Promise<Omit<User, 'password'>> {
     const user = await prismaClient.user.create({
       data: {
         name,
         email,
         password,
+      },
+      select: {
+        password: false,
+        email: true,
+        id: true,
+        name: true,
       },
     });
     return user;

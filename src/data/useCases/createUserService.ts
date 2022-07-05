@@ -1,20 +1,14 @@
-import { inject, injectable } from 'tsyringe';
-
 import { IHashProvider, ITokenProvider } from '@/domain/providers';
 import { IUserRepository } from '@/domain/repositories';
 import { ICreateUser } from '@/domain/useCases';
 import { AppError } from '@/main/config';
 
-@injectable()
 export class CreateUserService implements ICreateUser {
   constructor(
-    @inject('UserRepository')
     private userRepository: IUserRepository,
 
-    @inject('TokenProvider')
     private tokenProvider: ITokenProvider,
 
-    @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
   public async create({
@@ -36,6 +30,7 @@ export class CreateUserService implements ICreateUser {
       password: passwordHash,
     });
     const token = await this.tokenProvider.generateToken(userCreated.id);
+    console.log({ userCreated });
 
     return {
       token,

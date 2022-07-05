@@ -3,7 +3,6 @@ import 'dotenv/config';
 
 import express, { NextFunction, Request, Response } from 'express';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'express-async-errors';
 import './container';
 import { routes } from '@/presentation/routes';
@@ -32,6 +31,6 @@ process.on('SIGTERM', () => {
   process.exit();
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3333, () => {
   console.log('server started');
 });

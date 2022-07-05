@@ -6,7 +6,7 @@ export interface ICreateUser {
 
 export namespace ICreateUser {
   export type Props = Omit<User, 'id'>;
-  export type Model = User;
+  export type Model = Omit<User, 'password'>;
 }
 export interface IGetUserByEmail {
   findByEmail(email: string): Promise<User | null>;

@@ -8,6 +8,6 @@ export class UserController {
     const { email, name, password } = req.body;
     const createUser = container.resolve(CreateUserService);
     const user = await createUser.create({ email, name, password });
-    return res.json(user);
+    return res.json();
   }
 }

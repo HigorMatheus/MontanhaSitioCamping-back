@@ -6,11 +6,11 @@ import { AuthenticationService } from '@/data/useCases';
 export class AuthenticationController {
   public async auth(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
-    const createUser = container.resolve(AuthenticationService);
-    const test = await createUser.auth({
-      email,
-      password,
-    });
-    return res.json(test);
+    // const createUser = container.resolve(AuthenticationService);
+    // const test = await createUser.auth({
+    //   email,
+    //   password,
+    // });
+    return res.json({});
   }
 }

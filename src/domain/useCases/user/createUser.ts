@@ -7,7 +7,7 @@ export interface ICreateUser {
 export namespace ICreateUser {
   export type Params = Omit<User, 'id'>;
   export type Model = {
-    user: User;
+    user: Omit<User, 'password'>;
     token: string;
   };
 }
